@@ -1,17 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <search :remote-data-class='RemoteDataClass'/>
+    <results :remote-data-class='RemoteDataClass'/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import RemoteDataClass from "@/net.js";
+import SearchComponent from './components/SearchComponent.vue'
+import SearchResultsComponent from './components/SearchResultsComponent.vue'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      RemoteDataClass: null
+    }
+  },
   components: {
-    HelloWorld
+    search: SearchComponent,
+    results: SearchResultsComponent
+  },
+  created() {
+    this.RemoteDataClass = new RemoteDataClass("https://api.github.com");     //move it to global directive
   }
 }
 </script>
